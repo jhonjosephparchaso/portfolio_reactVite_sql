@@ -1,25 +1,19 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchProfile } from './features/profile/profileSlice'
 import './App.css'
 
 function App() {
-  const [profile, setProfile] = useState(null)
+  const dispatch = useDispatch()
+  const { data: profile, loading, error } = useSelector((state) => state.profile)
 
   useEffect(() => {
-    fetch('http://localhost/portfolio-api/get_profile.php')
-      .then(response => response.json())
-      .then(data => {
-        if (data.success) {
-          setProfile(data.data)
-        }
-      })
-      .catch(error => {
-        console.log('Error fetching profile:', error)
-      })
-  }, [])
+    dispatch(fetchProfile())
+  }, [dispatch])
   return (
     <>
       <header>
-        <h2>Jhon Joseph</h2>
+        <h2>jhonjosephparchaso</h2>
         <nav>
           <a href="#home">Home</a>
           <a href="#about">About</a>
